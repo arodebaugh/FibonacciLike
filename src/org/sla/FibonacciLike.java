@@ -1,23 +1,20 @@
 package org.sla;
 
-public class FibonacciLike {
-    public int max = 40;
-    public int first = 0;
-    public int second = 1;
-    public int[] sequence = new int[max];
+public class FibonacciLike implements Runnable {
+    private int max;
+    private int first;
+    private int second;
+    private int[] sequence;
 
     private String printOut;
+    private Boolean recursive;
 
-    public void run(int m, int f, int s, boolean recusrsive) {
+    FibonacciLike(int m, int f, int s, boolean r) {
         max = m;
         first = f;
         second = s;
-
-        if (recusrsive) {
-            generateRecursiveSequence(0);
-        } else {
-            generateSequence();
-        }
+        recursive = r;
+        sequence = new int[max];
     }
 
     void generateSequence() {
@@ -64,6 +61,14 @@ public class FibonacciLike {
         } else if (n == (max - 2)) {
             printOut += ", " + sequence[n];
             System.out.println(printOut);
+        }
+    }
+
+    public void run() {
+        if (recursive) {
+            generateRecursiveSequence(0);
+        } else {
+            generateSequence();
         }
     }
 }
